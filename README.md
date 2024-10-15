@@ -8,12 +8,56 @@
 ***First download the required image file from the OPNSense file and follow [those steps](https://docs.opnsense.org/manual/install.html) to install in on your device.***
 
 
-1. <a href="#pppoe-settings">PPPoE Settings</a>
+1. <a href="#dynamic-settings">Dynamic Settings</a>
+    - <a href="#wan-interface-dynamic">WAN Interface (Dynamic)</a>
+    - <a href="#interface-assignement-dynamic">Interface Assignement (Dynamic)</a>
+2. <a href="#pppoe-settings">PPPoE Settings</a>
     - <a href="#creating-vlan-pppoe">Creating VLAN (PPPoE)</a>
     - <a href="#point-to-point-interface-pppoe">Point to Point Interface (PPPoE)</a>
     - <a href="#wan-interface-pppoe">WAN Interface (PPPoE)</a>
     - <a href="#interface-assignment-pppoe">Interface Assignment (PPPoE)</a>
-2. <a href="#lan-interface-general">LAN Interface (General)</a>
+3. <a href="#lan-interface-general">LAN Interface (General)</a>
+
+
+
+# Dynamic Settings
+
+Those steps are followed when the ISP router is configured with no Usename/Password, mainly becuase those are being configured at the ISP end rather that at your end, _i.e. Superloop NBN in Australia_
+
+
+## WAN Interface (Dynamic)
+
+Open OPNSense main UI page by navigating to 192.168.1.1, then from there navigate to *Interfaces-->[WAN]*. In the screen, fill in as following:
+
+_*Basic Configuration*_
+- Make sure the interface is enabled
+- *Description* : WAN
+
+_*Generic configuration*_
+- Enable both the *Block private networks* and *Block bogon networks*
+- *IPv4 Configuration Type* : choose *DHCP*
+- *IPv6 Configuration Type* : choose *DHCP6*
+- *MTU* : 1500
+- *MSS* : 1492
+
+Leave everything as it is no changes
+
+![dynamic-dhcp-client-configuration](/screenshots/dynamic-dhcp-configuration.png)
+
+
+When done click on *Save*
+
+
+
+## Interface Assignement (Dynamic)
+
+On the same page, head to *Interfaces-->Assignments* and select the following:
+- *WAN* : select the desired WAN network adapter port (inbound)
+- *LAN* : sleect the LAN network adapter port (outbound)
+
+When done click on *Save*
+
+![dynamic-interface-assignment](/screenshots/dynamic-interface-assignment.jpeg)
 
 
 
